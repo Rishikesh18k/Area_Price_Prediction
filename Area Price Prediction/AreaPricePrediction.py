@@ -19,9 +19,12 @@ def get_value():
     model = LinearRegression()
     model.fit(train_x,train_y)
     prediction_price = model.predict([[area_x]])
-    score_price = model.score(test_x,test_y)
+    score_percent = model.score(test_x,test_y)
     price_value.configure(text=f"{round(prediction_price[0],2)} Rs.",text_color="#F5F5FA",font=("Franklin Gothic Demi Cond",18))
-    percentage_value.configure(text=f"{round(score_price*100,)}.00%",text_color="#F5F5FA",font=("Franklin Gothic Demi Cond",20))
+    if score_percent > 0:
+        percentage_value.configure(text=f"{round(score_percent*100,)}.00%",text_color="#F5F5FA",font=("Franklin Gothic Demi Cond",20))
+    else:
+        percentage_value.configure(text="0.0%",text_color="#F5F5FA",font=("Franklin Gothic Demi Cond",20))
 def clear():
     entry_label.delete(0,END)
     price_value.configure(text="000000000",font=("Franklin Gothic Demi Cond",22),text_color="#737373")
